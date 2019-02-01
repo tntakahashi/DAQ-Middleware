@@ -1,0 +1,1 @@
+install(FILES comp.mk DESTINATION ${PROJECT_INSTALL_DATADIR}/mk)
