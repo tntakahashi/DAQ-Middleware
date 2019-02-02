@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 2.6)
 
 project(DAQ-Middleware)
 
-set(RTM_ROOT $ENV{RTM_ROOT})
+find_package(OpenRTM REQUIRED)
+#set(RTM_ROOT $ENV{RTM_ROOT})
 
 include(GNUInstallDirs)
 set(CMAKE_INSTALL_PREFIX $ENV{CMAKE_INSTALL_PREFIX})
@@ -37,9 +38,9 @@ endif()
 
 add_subdirectory(src)
 add_subdirectory(bin)
-#add_subdirectory(conf)
-#add_subdirectory(docs)
-#add_subdirectory(etc)
+add_subdirectory(conf)
+add_subdirectory(docs)
+add_subdirectory(etc)
 #add_subdirectory(examples)
 #add_subdirectory(utils)
 #add_subdirectory(www)

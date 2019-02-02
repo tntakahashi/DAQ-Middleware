@@ -9,11 +9,18 @@ link_directories(
   )
 
 add_executable(readReg readReg.c)
-target_link_libraries(readReg sitcpbcp sock)
+target_link_libraries(readReg 
+  sitcpbcp 
+  sock
+  )
 
 add_executable(writeReg writeReg.c)
-target_link_libraries(writeReg sitcpbcp sock)
 
-# install(TARGETS readReg writeReg
-#   RUNTIME DESTINATION ${PROJECT_INSTALL_BINDIR}
-#   )
+target_link_libraries(writeReg 
+  sitcpbcp 
+  sock
+  )
+
+install(TARGETS readReg writeReg
+  RUNTIME DESTINATION ${PROJECT_INSTALL_BINDIR}/sitcpbcp
+  )

@@ -16,5 +16,4 @@ install(TARGETS sitcpbcp-static sitcpbcp-shared
   LIBRARY DESTINATION ${PROJECT_INSTALL_LIBDIR}
   )
 
-
 add_subdirectory(programs)

@@ -14,5 +14,4 @@ install(TARGETS Sock-static Sock-shared
   LIBRARY DESTINATION ${PROJECT_INSTALL_LIBDIR}
   )
 
-
-add_subdirectory(test)
+#add_subdirectory(test)
