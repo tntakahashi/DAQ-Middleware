@@ -1,14 +1,18 @@
-add_subdirectory(SampleLogger)
-add_subdirectory(SampleMonitor)
-add_subdirectory(SampleReader)
-add_subdirectory(SampleReader2)
-add_subdirectory(SampleFilter)
-add_subdirectory(Skeleton)
-add_subdirectory(SkeletonSink)
-add_subdirectory(SkeletonSource)
-add_subdirectory(ConditionSampleMonitor)
-add_subdirectory(TinySink)
-add_subdirectory(TinySource)
-add_subdirectory(Dispatcher)
-add_subdirectory(BestEffortDispatcher)
-add_subdirectory(change-SampleComp-name)
+foreach(dir 
+  BestEffortDispatcher
+  change-SampleComp-name
+  ConditionSampleMonitor
+  Dispatcher
+  SampleFilter
+  SampleLogger
+  SampleMonitor
+  SampleReader
+  SampleReader2
+  Skeleton
+  SkeletonSink
+  SkeletonSource
+  TinySink
+  TinySource)
+install(DIRECTORY ${dir} DESTINATION ${CMAKE_INSTALL_DATADIR}/examples)
+endforeach(dir)
+

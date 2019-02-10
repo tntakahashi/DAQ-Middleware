@@ -6,5 +6,5 @@ install(FILES
   tiny.xml
   4comps.xml
   reader-logger.xml
-  DESTINATION ${PROJECT_INSTALL_DATADIR}/conf
+  DESTINATION ${CMAKE_INSTALL_DATADIR}/conf
   )

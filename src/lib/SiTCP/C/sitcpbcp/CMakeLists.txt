@@ -10,10 +10,17 @@ set(version "${api_version}.${patchlevel}")
 set_target_properties(sitcpbcp-static PROPERTIES OUTPUT_NAME sitcpbcp CLEAN_DIRECT_OUTPUT 1)
 set_target_properties(sitcpbcp-shared PROPERTIES OUTPUT_NAME sitcpbcp CLEAN_DIRECT_OUTPUT 1 VERSION ${version} SOVERSION ${api_version})
 
-install(FILES sitcpbcp.h DESTINATION ${PROJECT_INSTALL_INCLUDEDIR})
-install(TARGETS sitcpbcp-static sitcpbcp-shared
-  ARCHIVE DESTINATION ${PROJECT_INSTALL_LIBDIR}
-  LIBRARY DESTINATION ${PROJECT_INSTALL_LIBDIR}
+install(FILES sitcpbcp.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+install(TARGETS 
+  sitcpbcp-static 
+  sitcpbcp-shared
+  EXPORT DAQMW-export
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDE_DIR}
+  PUBLIC_HAEDER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
   )
+
 
 add_subdirectory(programs)

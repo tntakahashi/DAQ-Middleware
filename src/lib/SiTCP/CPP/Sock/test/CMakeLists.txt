@@ -11,5 +11,5 @@ add_executable(socktestexception socktestexception)
 target_link_libraries(socktestexception Sock)
 
 install(TARGETS socktest socktestexception
-  RUNTIME DESTINATION ${PROJECT_INSTALL_BINDIR}/test
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}/test
   )
