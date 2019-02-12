@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 2.6)
 
-project(DAQ-Middleware)
+project(DAQMW)
 
-set(CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE ON)
+#set(CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE ON)
 
 find_package(OpenRTM REQUIRED)
 

@@ -5,14 +5,14 @@ set(cppsrcs
   )
 
 add_library(JsonSpirit-static STATIC ${cppsrcs})
-add_library(JsonSpirit-shared SHARED ${cppsrcs})
+add_library(JsonSpirit        SHARED ${cppsrcs})
 
 set_target_properties(JsonSpirit-static PROPERTIES OUTPUT_NAME JsonSpirit CLEAN_DIRECT_OUTPUT 1)
-set_target_properties(JsonSpirit-shared PROPERTIES OUTPUT_NAME JsonSpirit CLEAN_DIRECT_OUTPUT 1)
+set_target_properties(JsonSpirit        PROPERTIES CLEAN_DIRECT_OUTPUT 1)
 
 install(TARGETS
   JsonSpirit-static
-  JsonSpirit-shared
+  JsonSpirit
   EXPORT DAQMW-export
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

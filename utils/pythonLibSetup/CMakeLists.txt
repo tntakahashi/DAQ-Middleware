@@ -1,0 +1,5 @@
+set(PYTHON_SITELIB "${CMAKE_INSTALL_LIBDIR}/python/")
+
+#install(FILES daqmw.pth DESTINATION ${PYTHON_SITELIB})
+install(FILES __init__.py DESTINATION ${PYTHON_SITELIB})
+

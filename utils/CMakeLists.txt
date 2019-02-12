@@ -1,0 +1,7 @@
+add_subdirectory(pythonLibSetup)
+add_subdirectory(daqcom)
+add_subdirectory(newcomp)
+add_subdirectory(daqmw-emulator)
+add_subdirectory(conditonPanel)
+add_subdirectory(dmbepanel)
+add_subdirectory(configGUI)

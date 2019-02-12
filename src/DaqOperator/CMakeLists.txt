@@ -1,42 +1,28 @@
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
-
-message("CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
-message("CMAKE_BINARY_DIR: ${CMAKE_BINARY_DIR}")
-
-add_custom_command(
- OUTPUT DAQService.hh DAQServiceSK.cc DAQServiceDynSK.cc DAQServiceSkel.h DAQServiceStub.h DAQServiceSkel.cpp DAQServiceStub.cpp 
- DEPENDS ${CMAKE_BINARY_DIR}/include/idl/DAQService.idl
- COMMAND ${OPENRTM_IDLC} ${OPENRTM_IDLFLAGS} -I${OPENRTM_INCLUDE_DIR}/rtm/idl ${CMAKE_BINARY_DIR}/include/idl/DAQService.idl
- COMMAND ${OPENRTM_IDL_WRAPPER} ${OPENRTM_IDL_WRAPPER_FLAGS} --idl-file=${CMAKE_BINARY_DIR}/include/idl/DAQService.idl
- )
-
 add_executable(DaqOperatorComp 
   DaqOperator.cpp
   DaqOperatorComp.cpp
   ConfFileParser.cpp
   CreateDom.cpp
-  DAQService.hh
-  DAQServiceSkel.cpp
-  ${CMAKE_BINARY_DIR}/include/idl/DAQServiceSVC_impl.cpp
   )
 
 target_include_directories(DaqOperatorComp
   PRIVATE
-  ${CMAKE_BINARY_DIR}/include
-  ${CMAKE_BINARY_DIR}/include/idl
-  ${CMAKE_CURRENT_BINARY_DIR}
+  ${CMAKE_SOURCE_DIR}/src/lib/SiTCP/CPP/Sock 
+  ${CMAKE_BINARY_DIR}/src/mk
   ${OPENRTM_INCLUDE_DIRS}
   )
 
 target_link_directories(DaqOperatorComp
   PUBLIC
+  ${CMAKE_BINARY_DIR}/src/lib/SiTCP/CPP/Sock 
+  ${CMAKE_BINARY_DIR}/src/mk
   ${OPENRTM_LIBRARY_DIRS}
-  ${CMAKE_CURRENT_BINARY_DIR}/../lib/SiTCP/CPP/Sock 
   )
 
 target_link_libraries(DaqOperatorComp
-  ${OPENRTM_LIBRARIES}
+  DAQService
   Sock
+  ${OPENRTM_LIBRARIES}
   xerces-c
 )
 

@@ -1,18 +1,18 @@
 add_library(sock-static STATIC sock.c)
-add_library(sock-shared SHARED sock.c)
+add_library(sock        SHARED sock.c)
 
 set(api_version 1)
 set(patchlevel 0)
 set(version "${api_version}.${patchlevel}")
 
 set_target_properties(sock-static PROPERTIES OUTPUT_NAME sock CLEAN_DIRECT_OUTPUT 1)
-set_target_properties(sock-shared PROPERTIES OUTPUT_NAME sock CLEAN_DIRECT_OUTPUT 1 VERSION ${version} SOVERSION ${api_version})
+set_target_properties(sock        PROPERTIES CLEAN_DIRECT_OUTPUT 1 VERSION ${version} SOVERSION ${api_version})
 
 install(FILES sock.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 install(TARGETS 
   sock-static 
-  sock-shared 
+  sock
   EXPORT DAQMW-export
   ARCHIVE  DESTINATION ${CMAKE_INSTALL_LIBDIR}
   LIBRARY  DESTINATION ${CMAKE_INSTALL_LIBDIR}
