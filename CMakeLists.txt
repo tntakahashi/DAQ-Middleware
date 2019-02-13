@@ -2,7 +2,22 @@ cmake_minimum_required(VERSION 2.6)
 
 project(DAQMW)
 
-#set(CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE ON)
+
+file(READ ${CMAKE_SOURCE_DIR}/VERSION versionstr)
+string(STRIP ${versionstr} versionstr)
+string(REGEX REPLACE "([0-9]+)[.][0-9]+[.][0-9]+" "\\1" DAQMW_MAJOR_VERSION ${versionstr})
+string(REGEX REPLACE "[0-9]+[.]([0-9]+)[.][0-9]+" "\\1" DAQMW_MINOR_VERSION ${versionstr})
+string(REGEX REPLACE "[0-9]+[.][0-9]+[.]([0-9]+)" "\\1" DAQMW_PATCH_VERSION ${versionstr})
+set(DAQMW_VERSION "${DAQMW_MAJOR_VERSION}.${DAQMW_MINOR_VERSION}.${DAQMW_PATCH_VERSION}")
+set(PROJECT_VERSION ${DAQMW_VERSION})
+
+message("DAQMW_VERSION:       ${DAQMW_VERSION}")
+message("DAQMW_MAJOR_VERSION: ${DAQMW_MAJOR_VERSION}")
+message("DAQMW_MINOR_VERSION: ${DAQMW_MINOR_VERSION}")
+message("DAQMW_PATCH_VERSION: ${DAQMW_PATCH_VERSION}")
+
 
 find_package(OpenRTM REQUIRED)
 
@@ -40,8 +55,38 @@ add_subdirectory(examples)
 #add_subdirectory(utils)
 #add_subdirectory(www)
 
-install(EXPORT DAQMW-export
-  FILE DAQMW-config.cmake
-  DESTINATION ${CMAKE_INSTALL_DATADIR}/cmake
+#-------------------------------------------------------------------------------
+# package config
+#-------------------------------------------------------------------------------
+include(CMakePackageConfigHelpers)
+set(ConfigPackageLocation lib/cmake/DAQMW-${DAQMW_VERSION})
+export(EXPORT DAQMWTargets
+  FILE "${CMAKE_CURRENT_BINARY_DIR}/DAQMW/DAQMWTargets.cmake"
+  NAMESPACE DAQMW::
+)
+
+
+configure_package_config_file(cmake/DAQMWConfig.cmake.in
+  "${CMAKE_CURRENT_BINARY_DIR}/DAQMW/DAQMWConfig.cmake"
+  INSTALL_DESTINATION ${ConfigPackageLocation}
+  PATH_VARS CMAKE_INSTALL_PREFIX CMAKE_INSTALL_BINDIR CMAKE_INSTALL_INCLUDEDIR CMAKE_INSTALL_LIBDIR CMAKE_INSTALL_DATADIR
+)
+
+write_basic_package_version_file(
+  "${CMAKE_CURRENT_BINARY_DIR}/DAQMW/DAQMWConfigVersion.cmake"
+  VERSION ${DAQMW_VERSION}
+  COMPATIBILITY AnyNewerVersion
+)
+
+install(EXPORT DAQMWTargets
+  FILE DAQMWTargets.cmake
+  NAMESPACE DAQMW::
+  DESTINATION ${ConfigPackageLocation}
   )
+install(FILES
+  "${CMAKE_CURRENT_BINARY_DIR}/DAQMW/DAQMWConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/DAQMW/DAQMWConfigVersion.cmake"
+  DESTINATION ${ConfigPackageLocation}
+  COMPONENT Devel
+)
 
